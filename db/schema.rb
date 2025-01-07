@@ -16,6 +16,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_183338) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
+    # t.index ["user_id"], name: "index_posts_on_user_id" <-- chatGPT suggested, not sure what it does
     t.string "title"
     t.decimal "price"
     t.string "category"
@@ -36,5 +37,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_183338) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "posts", "users"
+  add_foreign_key "posts", "users" #, column: "user_id" <-- chatGPT suggested, not sure what it does
 end

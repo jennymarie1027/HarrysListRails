@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    # Add a has_many association to the User model
     has_many :posts, dependent: :destroy
 
     # Add secure password handling
