@@ -10,7 +10,7 @@
 
 10.times do |post|
     Post.create!(
-        author_id: "author #{post}",
+        author_id: post,
         title: "test title #{post}",
         price: 100,
         category: "Furniture",
