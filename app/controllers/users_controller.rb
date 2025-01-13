@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     def index
         @users = User.all
         render json: @users
-        # Other rendering approaches:
+        # Other rendering options:
         # render json: @users, only: [:name, :email]           # Only specific attributes
         # render json: @users, except: [:password_digest]      # All attributes except these
         # render json: @users, include: :posts                 # Include associated models
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   
     def show
         @user = User.find(params[:id])
+        render json: @user
     end
 
     def new
