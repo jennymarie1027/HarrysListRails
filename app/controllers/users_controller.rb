@@ -19,22 +19,23 @@ class UsersController < ApplicationController
         render json: @user
     end
 
-    def new # what is the point of this action 
-        @user = User.new
-    end
+    # def new # what is the point of this action 
+    #     @user = User.new
+    # end
 
     def create
         # filter params so only allowed attributes are passed
-        user_params
+        # user_params
         # create new object
-        @user = User.new(params[:user])
+        @user = User.new(user_params)
         # save object
         if @user.save
         # if succeeeds redirect to index
             redirect_to users_path
         # if fails render new
         else
-            render :new
+            # render :new
+            raise @user.errors.inspect
         end
     end
 
@@ -48,6 +49,7 @@ class UsersController < ApplicationController
             redirect_to users_path(@user)
         else
             render :edit
+        end
     end
 
     def delete
