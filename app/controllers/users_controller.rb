@@ -19,22 +19,22 @@ class UsersController < ApplicationController
         render json: @user
     end
 
-    # def new # what is the point of this action 
-    #     @user = User.new
-    # end
+    def new # displays the user creat form
+        @user = User.new
+    end
 
     def create
         # filter params so only allowed attributes are passed
-        # user_params
-        # create new object
+        user_params
+        # create user object
         @user = User.new(user_params)
-        # save object
+        # save user object
         if @user.save
         # if succeeeds redirect to index
             redirect_to users_path
-        # if fails render new
+        # if fails render the form to create a user again
         else
-            # render :new
+            render :new
             raise @user.errors.inspect
         end
     end
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         @user.destroy
-        redirect :users_path
+        redirect_to users_path
     end
 
     private
