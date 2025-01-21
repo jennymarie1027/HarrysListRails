@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "can run tests" do
-    expect(true).to eq(true)
+  it "creates a user" do
+    user = FactoryBot.create(:user)
+    expect(user).to be_valid
   end
 end
