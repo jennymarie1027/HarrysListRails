@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   
     def show
         @user = User.find(params[:id])
-        render json: @user
+        puts "HIts the SHOW Action"
+        render json: @user, status: :ok
     end
 
     def new # displays the user creat form
@@ -31,7 +32,8 @@ class UsersController < ApplicationController
         # save user object
         if @user.save
         # if succeeeds redirect to index
-            redirect_to users_path
+            # redirect_to user_path(@user)
+            render json: @user, status: :created
         # if fails render the form to create a user again
         else
             render :new
@@ -46,7 +48,7 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         if @user.update(user_params)
-            redirect_to users_path(@user)
+            redirect_to user_path(@user)
         else
             render :edit
         end
