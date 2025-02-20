@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { FactoryBot.build(:user) }
+  let(:user) { FactoryBot.build(:user) } # set up test data
 
   describe "validations" do
     it "creates a user" do
