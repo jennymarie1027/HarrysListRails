@@ -3,10 +3,10 @@ require 'spec_helper'
 
 describe UsersController do
   describe "Get #index" do
-  before do
-    # Create multiple users
-    FactoryBot.create_list(:user, 12)
-  end
+    before do
+      # Create multiple users
+      FactoryBot.create_list(:user, 12)
+    end
 
     it "returns a successful response" do
       get :index
