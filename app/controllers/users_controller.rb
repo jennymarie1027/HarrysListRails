@@ -16,11 +16,11 @@ class UsersController < ApplicationController
   
     def show
         @user = User.find(params[:id])
-        puts "HIts the SHOW Action"
+        puts "Hits the SHOW Action"
         render json: @user, status: :ok
     end
 
-    def new # displays the user creat form
+    def new # displays the user create form
         @user = User.new
     end
 
