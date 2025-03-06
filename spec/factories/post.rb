@@ -1,6 +1,6 @@
 FactoryBot.define do
     factory :post do
-        association :user, factory: [:user, :with_posts]
+        association :user #, factory: [:user, :with_posts]
         sequence(:title) { |n| 'test title #' + n.to_s }
         price { 100 } # why is price 100.0 in the response?
         category { 'Furniture' }

@@ -18,7 +18,7 @@ describe UsersController do # , type: :request
   describe "GET /users/:id" do
     it "returns a specific user" do
       user = User.first
-      get "/users/#{user.id}"
+      get user_path(user.id) #"/users/#{user.id}"
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
       expect(response.body).to eq(user.to_json)
