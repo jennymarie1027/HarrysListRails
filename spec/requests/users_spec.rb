@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersController, type: :request do
+describe UsersController do # , type: :request
     before do
       # Create multiple users
       FactoryBot.create_list(:user, 12)
@@ -21,6 +21,7 @@ describe UsersController, type: :request do
       get "/users/#{user.id}"
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
+      expect(response.body).to eq(user.to_json)
     end
   end
 

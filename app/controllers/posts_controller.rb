@@ -49,6 +49,6 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:user_id, :title)
-      params.action_on_unpermitted_parameters = :raise
+      # params.action_on_unpermitted_parameters = :raise
     end
 end
