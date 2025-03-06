@@ -25,18 +25,18 @@ RSpec.describe User, type: :model do
       expect(duplicate_user).not_to be_valid
     end
 
-    # it "is not valid with a short password" do
-    #   user.password = "123"
-    #   expect(user).not_to be_valid
-    # end
+    it "is not valid with a blank password" do
+      user.password_digest = " "
+      expect(user).not_to be_valid
+    end
 
-    # it 'is not valid with an incorrectly formatted email' do
-    #   invalid_emails = ['invalid_email', 'missing@domain', 'no_at_sign.com']
-    #   invalid_emails.each do |invalid_email|
-    #     user.email = invalid_email
-    #     expect(user).not_to be_valid
-    #   end
-    # end
+    it 'is not valid with an incorrectly formatted email' do
+      invalid_emails = ['invalid_email', 'no_at_sign.com']
+      invalid_emails.each do |invalid_email|
+        user.email = invalid_email
+        expect(user).not_to be_valid
+      end
+    end
 
   end
 end

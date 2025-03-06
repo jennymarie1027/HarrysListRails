@@ -6,5 +6,5 @@ class User < ApplicationRecord
     has_secure_password
   
     # Ensure email is present and unique
-    validates :email, presence: true, uniqueness: true
+    validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
 end
