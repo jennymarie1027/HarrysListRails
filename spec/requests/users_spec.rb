@@ -32,4 +32,25 @@ describe UsersController, type: :request do
       expect(User.last.created_at).not_to be_nil
     end
   end
+
+  describe "PUT /users/:id" do
+    it "edits a user" do
+      user = User.first
+      put "/users/#{user.id}", params: { user: { email: "edited@mail.com" } }
+      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:found)
+      expect(User.first.email).to eq("edited@mail.com")
+    end
+  end
+
+  describe "DELETE /users/:id" do
+    it "deletes a user" do
+      user = User.first
+      expect(User.count).to eq(12)
+      delete "/users/#{user.id}"
+      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:found)
+      expect(User.count).to eq(11)
+    end
+  end
 end
