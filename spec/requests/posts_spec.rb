@@ -3,7 +3,7 @@ require 'rails_helper'
 describe PostsController do
     before do
         # Create multiple posts
-        FactoryBot.create_list(:post, 10) # errors out if list is more than one item
+        FactoryBot.create_list(:post, 10)
         FactoryBot.create_list(:user, 1)
       end
 
