@@ -7,6 +7,7 @@ class User < ApplicationRecord
   
     # Ensure email is present and unique
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
+    # validates_presence_of :email, :password_digest
 
     scope :alphabetical, -> { order(:email) };
     scope :faves, -> { where(is_fave: true)};

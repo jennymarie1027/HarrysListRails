@@ -5,8 +5,8 @@ class Post < ApplicationRecord
     scope :user_faves, -> (user) { where(user_id: user.id, is_fave: true) }
     scope :cheap, -> { where("price < 10") }
     scope :expensive, -> { where("price > 100") }
-    scope :search_title_by_keyword, -> (keyword) { where("title LIKE ?", "%#{keyword}%") }
-    scope :search_desc_by_keyword, -> (keyword) { where("description LIKE ?", "%#{keyword}%") }
+    scope :search_title_by_keyword, -> (keyword) { where("LOWER(title) LIKE ?", "%#{keyword.downcase}%") } # % === wildcards so that the keyword can be anywhere in the title
+    scope :search_desc_by_keyword, -> (keyword) { where("LOWER(description) LIKE ?", "%#{keyword.downcase}%") }
     scope :find_by_user, -> (user) { where(user_id: user.id) }
     scope :recent, -> { where("created_at > ?", 1.week.ago) }
     scope :alphabetical, -> { order(:title) }
