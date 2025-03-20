@@ -6,9 +6,8 @@ class Post < ApplicationRecord
     validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
     validates :title, presence: true, length: { minimum: 2 }
     validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-    validates :category, presence: true # , inclusion: { in: %w(ForSale Wanted) }
+    validates :category, presence: true
     validates :description, presence: true, length: { minimum: 1 }
-
 
     scope :user_faves, -> (user) { where(user_id: user.id, is_fave: true) }
     scope :cheap, -> { where("price < 10") }
