@@ -17,4 +17,18 @@ class Post < ApplicationRecord
     scope :find_by_user, -> (user) { where(user_id: user.id) }
     scope :recent, -> { where("created_at > ?", 1.week.ago) }
     scope :alphabetical, -> { order(:title) }
+
+    before_save :titleize_title
+    after_save :log_post_saved
+
+    private
+    def titleize_title
+        self.title = self.title.titleize
+    end
+
+    def log_post_saved
+        puts "Post was saved!"
+        puts self.inspect
+        puts self.title
+    end
 end
