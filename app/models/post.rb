@@ -23,7 +23,7 @@ class Post < ApplicationRecord
 
     private
     def titleize_title
-        self.title = self.title.titleize
+        self.title = title.titleize
     end
 
     def log_post_saved
