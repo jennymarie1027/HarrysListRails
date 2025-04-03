@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
     after_create :log_created_user
     after_update :log_updated_user
-    after_destroy :log_destroyed_user
+    after_save :log_saved_user
 
     private
     def log_created_user
@@ -28,7 +28,7 @@ class User < ApplicationRecord
         logger.info("successfully updated user with id: #{id}")
     end
 
-    def log_destroyed_user
-        logger.info("successfully destroyed user with id: #{id}")
+    def log_saved_user
+        logger.info("successfully saved user with id: #{id}")
     end
 end
