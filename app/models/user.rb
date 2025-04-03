@@ -18,6 +18,7 @@ class User < ApplicationRecord
     after_create :log_created_user
     after_update :log_updated_user
     after_save :log_saved_user
+    after_commit :cleaning_reminder, if => :too_many_records?
 
     private
     def log_created_user
@@ -30,5 +31,13 @@ class User < ApplicationRecord
 
     def log_saved_user
         logger.info("successfully saved user with id: #{id}")
+    end
+
+    def cleaning_reminder
+        logger.info("Cleaning reminder: too many records in the database")
+    end
+
+    def too_many_records?
+        User.count > 1000
     end
 end
