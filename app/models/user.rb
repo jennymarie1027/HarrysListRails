@@ -15,5 +15,20 @@ class User < ApplicationRecord
     scope :recently_created, -> { where("created_at > ?", 1.week.ago) };
     # scope :find_by_credentials, -> (email, password) { user = User.find_by_email(email); user && user.authenticate(password) ? user : nil };
 
+    after_create :log_created_user
+    after_update :log_updated_user
+    after_destroy :log_destroyed_user
 
+    private
+    def log_created_user
+        logger.info("successfully created user with id: #{id}")
+    end
+
+    def log_updated_user
+        logger.info("successfully updated user with id: #{id}")
+    end
+
+    def log_destroyed_user
+        logger.info("successfully destroyed user with id: #{id}")
+    end
 end
