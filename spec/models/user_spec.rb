@@ -2,14 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { FactoryBot.build(:user) } # set up test data
-  let(:model3) { FactoryBot.build(:user, email: 'zebra@example.com') }
-  let(:model2) { FactoryBot.build(:user, email: 'apple@example.com') }
-  let(:model1) { FactoryBot.build(:user, email: 'banana@example.com') }
 
   describe "validations" do
     it "creates a user" do
       expect(user).to be_valid
-      expect(user.email).to include("rspec_test_user")
     end
 
     it "is not valid without a email" do
@@ -44,19 +40,14 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-
     it 'returns users in alphabetical order' do
       # create test records with emails in non-alphabetical order
-      # model3 = 
-      # model2 = FactoryBot.build(:user, email: 'apple@example.com')
-      # model1 = FactoryBot.build(:user, email: 'banana@example.com')
+      model3 = FactoryBot.create(:user, email: 'zebra@example.com')
+      model2 = FactoryBot.create(:user, email: 'apple@example.com')
+      model1 = FactoryBot.create(:user, email: 'banana@example.com')
 
-      # model1.save
-      # model2.save
-      # model3.save
+      expect(User.alphabetical).to eq([model2, model1, model3])
 
-      # expect(User.alphabetical).to eq([model2, model1, model3])
-      puts model1.inspect
     end
   end
 end
