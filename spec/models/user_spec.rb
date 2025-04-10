@@ -49,6 +49,24 @@ RSpec.describe User, type: :model do
       expect(User.alphabetical).to eq([model2, model1, model3])
 
     end
+   
+  end
+  describe 'callbacks' do
+    it 'logs created user' do
+      expect(user).to receive(:log_created_user)
+      user.save
+    end
+
+    # it 'logs updated user' do
+    #   expect(user).to receive(:log_updated_user)
+    #   user.save
+    #   user.updated_at = Time.now
+    # end
+
+    it 'logs saved user' do
+      expect(user).to receive(:log_saved_user)
+      user.save
+    end
   end
 end
 
