@@ -35,7 +35,7 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 gem "bcrypt"
-
+gem "faker", "~> 3.5.1"
 
 group :test do
   gem 'rspec-rails', '~> 7.1'

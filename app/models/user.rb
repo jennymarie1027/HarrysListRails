@@ -18,7 +18,7 @@ class User < ApplicationRecord
     after_create :log_created_user
     after_update :log_updated_user
     after_save :log_saved_user
-    after_commit :cleaning_reminder, if => :too_many_records?
+    # after_commit :cleaning_reminder, if => :too_many_records?
 
     private
     def log_created_user
