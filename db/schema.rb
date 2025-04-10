@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_07_183338) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_165938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id" # <-- creates a db index to make queries faster
     t.string "title"
-    t.decimal "price"
+    t.decimal "price", precision: 10, scale: 2
     t.string "category"
     t.text "description"
     t.string "image"
@@ -37,5 +36,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_183338) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "posts", "users", column: "user_id" # explicitly define the foreign key relationship
+  add_foreign_key "posts", "users"
 end
