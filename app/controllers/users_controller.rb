@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
     def create
         # filter params so only allowed attributes are passed
+        byebug
         user_params
         # create user object
         @user = User.new(user_params)

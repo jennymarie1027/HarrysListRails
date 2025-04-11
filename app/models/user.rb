@@ -7,7 +7,6 @@ class User < ApplicationRecord
   
     # Ensure email is present and unique
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
-    # validates_presence_of :email, :password_digest
 
     scope :alphabetical, -> { order(:email) };
     scope :faves, -> { where(is_fave: true)};
@@ -17,20 +16,21 @@ class User < ApplicationRecord
 
     after_create :log_created_user
     after_update :log_updated_user
-    after_save :log_saved_user
+    # after_save :log_saved_user
     # after_commit :cleaning_reminder, if => :too_many_records?
 
-    private
+    # private
     def log_created_user
-        logger.info("successfully created user with id: #{id}")
+        logger.info("successfully created user with id")
     end
 
     def log_updated_user
-        logger.info("successfully updated user with id: #{id}")
+        logger.info("successfully updated user with id")
     end
 
     def log_saved_user
-        logger.info("successfully saved user with id: #{id}")
+        # byebug
+        logger.info("successfully saved user with id")
     end
 
     def cleaning_reminder
