@@ -25,17 +25,13 @@ class UsersController < ApplicationController
     end
 
     def create
-        # filter params so only allowed attributes are passed
-        user_params
-        # create user object
-        @user = User.new(user_params) # allowed_user_params
-        # save user object
+        # user_params
+        @user = User.new(allowed_user_params)
         if @user.save
-        # if succeeeds redirect to index
-            # redirect_to user_path(@user)
+            flash[:notice] = "User created successfully"
             render json: @user, status: :created
-        # if fails render the form to create a user again
         else
+            flash.now[:error] = "User creation failed" # is this the right way to do it?
             render :new
             raise @user.errors.inspect
         end
@@ -66,7 +62,7 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:name, :email, :password)
+        params.require(:user).permit(:name, :email, :password) # this is the older way of doing it and has security flaws, but it still works
     end
 
     def allowed_user_params
