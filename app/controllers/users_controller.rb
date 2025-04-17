@@ -21,15 +21,14 @@ class UsersController < ApplicationController
     end
 
     def new # displays the user create form
-        @user = User.new
+        @user = User.new()
     end
 
     def create
         # filter params so only allowed attributes are passed
-        byebug
         user_params
         # create user object
-        @user = User.new(user_params)
+        @user = User.new(user_params) # allowed_user_params
         # save user object
         if @user.save
         # if succeeeds redirect to index
@@ -68,5 +67,9 @@ class UsersController < ApplicationController
     private
     def user_params
         params.require(:user).permit(:name, :email, :password)
+    end
+
+    def allowed_user_params
+        params.expect(user: [:name, :email, :password])
     end
 end
