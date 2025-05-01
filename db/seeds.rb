@@ -1,24 +1,50 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+# Create categories
+categories = [
+  Category.create!(title: "Tools"),
+  Category.create!(title: "Craft Supplies"),
+  Category.create!(title: "Appliances"),
+]
 
-10.times do |post|
-    Post.create!(
-        user_id: 1,
-        title: "test title #{post}",
-        price: 100,
-        category: "Furniture",
-        description: "this is a test description ...",
-        image: "https://images.unsplash.com/photo-1731412924028-204b15ca8f1d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        file: "file",
-        location: "Denver",
-        is_fave: false
-    )
-end
+# Create locations
+locations = [
+  Location.create!(title: "Denver"),
+  Location.create!(title: "Minneapolis"),
+  Location.create!(title: "Chicago")
+]
 
+# Create a test user
+user = User.create!(
+  email: "test_2_v2@example.com",
+  password_digest: "dummy_digest",
+  session_token: "dummy_token"
+)
+
+# Create some items
+items = [
+  Item.create!(
+    title: "Laptop",
+    price: 999.99,
+    category: categories[0],
+    description: "Powerful laptop with 16GB RAM"
+  ),
+  Item.create!(
+    title: "Sofa",
+    price: 499.99,
+    category: categories[1],
+    description: "Comfortable 3-seater sofa"
+  )
+]
+
+# Create posts
+Post.create!(
+  user: user,
+  item: items[0],
+  location: locations[0]
+)
+
+Post.create!(
+  user: user,
+  item: items[1],
+  location: locations[1]
+)

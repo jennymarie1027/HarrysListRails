@@ -11,23 +11,23 @@ class Post < ApplicationRecord
     scope :user_faves, -> (user) { where(user_id: user.id, is_fave: true) }
     scope :cheap, -> { where("price < 10") }
     scope :expensive, -> { where("price > 100") }
-    scope :search_title_by_keyword, -> (keyword) { where("LOWER(title) LIKE ?", "%#{keyword.downcase}%") } # % === wildcards so that the keyword can be anywhere in the title
+    # scope :search_title_by_keyword, -> (keyword) { where("LOWER(title) LIKE ?", "%#{keyword.downcase}%") } # % === wildcards so that the keyword can be anywhere in the title
     scope :search_desc_by_keyword, -> (keyword) { where("LOWER(description) LIKE ?", "%#{keyword.downcase}%") }
     scope :find_by_user, -> (user) { where(user_id: user.id) }
     scope :recent, -> { where("created_at > ?", 1.week.ago) }
-    scope :alphabetical, -> { order(:title) }
+    # scope :alphabetical, -> { order(:title) }
 
-    before_save :titleize_title
+    # before_save :titleize_title
     after_save :log_post_saved
 
     private
-    def titleize_title
-        self.title = title.titleize
-    end
+    # def titleize_title
+    #     self.title = title.titleize
+    # end
 
     def log_post_saved
         puts "Post was saved!"
         puts self.inspect
-        puts self.title
+        # puts self.title
     end
 end
