@@ -1,12 +1,15 @@
 class User < ApplicationRecord
     # Add a has_many association to the User model
     has_many :posts, :dependent => :destroy
+    has_many :items, through: :posts
 
     # Add secure password handling
     has_secure_password
   
     # Ensure email is present and unique
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
+    # validates :password, presence: true, length: { minimum: 6 }
+    # validates :session_token, presence: true, uniqueness: true
 
     scope :alphabetical, -> { order(:email) };
     scope :faves, -> { where(is_fave: true)};

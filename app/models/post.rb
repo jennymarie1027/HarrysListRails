@@ -1,13 +1,12 @@
 class Post < ApplicationRecord
     # Add a belongs_to association to the Post model
-    belongs_to :user, optional: false  # Add this line to associate a post with a user
+    belongs_to :user, optional: false
+    belongs_to :item
+    belongs_to :location, optional: true
 
     # Add validations to the Post model
     validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
-    validates :title, presence: true, length: { minimum: 2 }
-    validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-    validates :category, presence: true
-    validates :description, presence: true, length: { minimum: 1 }
+    validates :item_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
     scope :user_faves, -> (user) { where(user_id: user.id, is_fave: true) }
     scope :cheap, -> { where("price < 10") }
