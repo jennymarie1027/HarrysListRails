@@ -10,22 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_165938) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_01_220737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "posts", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "title"
-    t.decimal "price", precision: 10, scale: 2
-    t.string "category"
-    t.text "description"
-    t.string "image"
-    t.string "file"
-    t.string "location"
-    t.boolean "is_fave"
+  create_table "categories", force: :cascade do |t|
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "title"
+    t.decimal "price", precision: 10, scale: 2
+    t.bigint "category_id"
+    t.text "description"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_items_on_category_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_posts_on_item_id"
+    t.index ["location_id"], name: "index_posts_on_location_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,5 +56,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_165938) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "items", "categories"
+  add_foreign_key "posts", "items"
+  add_foreign_key "posts", "locations"
   add_foreign_key "posts", "users"
 end
